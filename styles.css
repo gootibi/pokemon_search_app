@@ -10,6 +10,11 @@
     --light-grey: #f5f6f7;
     --dark-blue: #1b1b32;
     --green: #045919;
+    --gray: rgb(140 140 140);
+    --gray-black: rgb(160 160 160);
+    --withe: rgb(228 240 245);
+    --withe-gray: rgb(237 238 242);
+    
 }
 
 body {
@@ -70,6 +75,59 @@ h2 {
     font-size: 2rem;
     text-align: center;
 }
+
+#pokemon-name {
+    margin-bottom: 20px;
+}
+
+#types {
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Table element */
+
+table {
+    border-collapse: collapse;
+    border: 2px solid var(--gray);
+    font-family: sans-serif;
+    font-size: 1.0rem;
+    letter-spacing: 1px;
+  }
+  
+  caption {
+    caption-side: bottom;
+    padding: 30px;
+    font-weight: bold;
+  }
+  
+  thead,
+  tfoot {
+    background-color: var(--withe);
+    color: var(--dark-blue);
+    font-size: 1.5rem;
+  }
+  
+  th,
+  td {
+    border: 1px solid var(--gray-black);
+    padding: 8px 10px;
+  }
+  
+  td:last-of-type {
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  tbody > tr:nth-of-type(even) {
+    background-color: var(--withe-gray);
+    color: #1b1b32;
+  }
+
+  /* Mediaquery */
 
 @media screen and (min-width: 500px) {
     .input-container {

@@ -15,25 +15,22 @@ const specialDefenseElement = document.getElementById("special-defense");
 const speedElement = document.getElementById("speed");
 
 const pokemonDatas = 'https://pokeapi-proxy.freecodecamp.rocks/api/pokemon';
-let resultPokemon = {};
-let result = [];
-let nameOrId = '122';
+let nameOrId = '';
 
 const fetchData = async () => {
+    nameOrId = (searchInput.value).toLowerCase();
     try {
         const res = await fetch(`${pokemonDatas}/${nameOrId}`);
         const data = await res.json();
-        console.log(data);
         showPokemon(data);
     } catch (error) {
         console.log(error);
-        resultContainer.innerText = "Invalid Pokemon or someting wrong! Try again!"
+        alert("Pokémon not found");
     }
 };
 
-fetchData();
-
 const showPokemon = (data) => {
+    console.log(data);
     const { name, id, weight, height, types, sprites, stats } = data;
     const hp = stats[0].base_stat;
     const attack = stats[1].base_stat;
@@ -41,22 +38,32 @@ const showPokemon = (data) => {
     const specAttack = stats[3].base_stat;
     const specDefense = stats[4].base_stat;
     const speed = stats[5].base_stat;
-    const typeResult = types.map(item => {
-        return `${item.type.name}`;
-    }).join(', ').toUpperCase();
 
+    typesElement.innerHTML = ``;
+    types.map(item => {
+        typesElement.innerHTML += `<span>${(item.type.name).toUpperCase()}</span>`;
+    }).join('');
     pokemonName.textContent = `${name}`;
     pokemonId.textContent = `#${id}`;
     pokemonImg.innerHTML = `
-        <img src="${sprites.front_default}" alt="pokemon" id="pokemon-img" />
+        <img src="${sprites.front_default}" alt="pokemon" id="sprite" />
     `;
-    weightElement.textContent = `Weight: ${weight}`;
-    heightElement.textContent = `Height: ${height}`;
-    typesElement.textContent = `Types: ${typeResult}`;
-    attackElement.textContent = `Attack: ${attack}`;
-    defenseElement.textContent = `Defense: ${defense}`;
-    specialAttackElement.textContent = `Special Attack: ${specAttack}`;
-    specialDefenseElement.textContent = `Special Defense: ${specDefense}`;
-    speedElement.textContent = `Speed: ${speed}`;
+    weightElement.textContent = `${weight}`;
+    heightElement.textContent = `${height}`;
+    hpElement.textContent = `${hp}`;
+    attackElement.textContent = ` ${attack}`;
+    defenseElement.textContent = `${defense}`;
+    specialAttackElement.textContent = `${specAttack}`;
+    specialDefenseElement.textContent = `${specDefense}`;
+    speedElement.textContent = `${speed}`;
 };
 
+searchButton.addEventListener('click', () => {
+    fetchData();
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        fetchData();
+    }
+});
